@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生字筆畫小達人</title>
+  <style>
+    /* 全局設定與背景 */
+    body {
+      font-family: '微軟正黑體', '標楷體', sans-serif;
+      background-color: #F0F8FF; /* 柔和的愛麗絲藍背景 */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* 主容器：類似平板上的 APP 視窗 */
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* 標題設計 */
+    header h1 {
+      color: #333;
+      font-size: 2.5em;
+      margin-top: 0;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* 網格排版：設定為 4欄 */
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    /* 響應式設計：如果螢幕比較小，自動變成 3欄 或 2欄 */
+    @media (max-width: 800px) {
+      .lesson-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .lesson-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* 按鈕基本樣式 */
+    .lesson-btn {
+      background-color: #fff;
+      border: 5px solid;
+      border-radius: 20px;
+      padding: 30px 10px;
+      font-size: 1.8em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 0px rgba(0,0,0,0.1); /* 立體感陰影 */
+    }
+
+    /* 按鈕懸停(Hover)效果 */
+    .lesson-btn:hover {
+      transform: translateY(-5px);
+    }
+
+    /* 按鈕按壓(Active)效果：模擬真實按鈕按下去的感覺 */
+    .lesson-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0px rgba(0,0,0,0.1);
+    }
+
+    /* 為按鈕配置不同的鮮豔色彩 (使用 CSS 變數或直接寫死) */
+    .color-1 { border-color: #FF7043; color: #D84315; }
+    .color-1:hover { background-color: #FBE9E7; }
+
+    .color-2 { border-color: #FFA726; color: #EF6C00; }
+    .color-2:hover { background-color: #FFF3E0; }
+
+    .color-3 { border-color: #FFEE58; color: #F57F17; }
+    .color-3:hover { background-color: #FFFDE7; }
+
+    .color-4 { border-color: #9CCC65; color: #558B2F; }
+    .color-4:hover { background-color: #F1F8E9; }
+
+    .color-5 { border-color: #26A69A; color: #00695C; }
+    .color-5:hover { background-color: #E0F2F1; }
+
+    .color-6 { border-color: #29B6F6; color: #0277BD; }
+    .color-6:hover { background-color: #E1F5FE; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>📚 康軒國語 (一下) 寫字練習 ✍️</h1>
+    </header>
+    
+    <main class="lesson-grid" id="lessonGrid">
+      </main>
+  </div>
+
+  <script>
+    // 1. 準備課程資料 (您之後可以從教育雲字典把生字查出來填入 words 陣列中)
+    const lessonsData = [
+      { id: 1, title: "第一課", words: [] },
+      { id: 2, title: "第二課", words: [] },
+      { id: 3, title: "第三課", words: [] },
+      { id: 4, title: "第四課", words: [] },
+      { id: 5, title: "第五課", words: [] },
+      { id: 6, title: "第六課", words: [] },
+      { id: 7, title: "第七課", words: [] },
+      { id: 8, title: "第八課", words: [] },
+      { id: 9, title: "第九課", words: [] },
+      { id: 10, title: "第十課", words: [] },
+      { id: 11, title: "第十一課", words: [] },
+      { id: 12, title: "第十二課", words: [] }
+    ];
+
+    const grid = document.getElementById('lessonGrid');
+
+    // 2. 使用迴圈，為每一課動態建立按鈕
+    lessonsData.forEach((lesson, index) => {
+      const btn = document.createElement('button');
+      
+      // 輪流套用 6 種不同的顏色設定 (color-1 到 color-6)
+      const colorClass = `color-${(index % 6) + 1}`; 
+      btn.className = `lesson-btn ${colorClass}`;
+      
+      // 設定按鈕顯示的文字
+      btn.innerText = lesson.title;
+      
+      // 3. 設定點擊事件：未來這邊要改寫成「隱藏首頁，顯示生字學習頁」
+      btn.onclick = () => {
+        alert(`準備進入 ${lesson.title}！\n（這裡之後會連接到畫布頁面）`);
+        // loadLesson(lesson); <-- 未來的函式
+      };
+      
+      // 將按鈕加入畫面中
+      grid.appendChild(btn);
+    });
+  </script>
+
+</body>
+</html>
